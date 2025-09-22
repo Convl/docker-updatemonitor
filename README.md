@@ -5,6 +5,17 @@
 - ```compose.yml```: Beispiel Docker Compose mit veralteten Versionen von Redis, Nginx und MariaDB zu Demonstrationszwecken
 - ```example_reports/```: Die Reports, welche mein Tool auf Basis der o.g. veralteten Container generiert
 
+## Flowchart
+
+```mermaid
+flowchart TD
+    A[DIUN Cron Job findet ein Update?] -->|Ja| B[DIUN startet unser Skript via run_update_handler.sh]
+    B --> C[Skript extrahiert Namen des Update<br/>via DIUN Umgebungsvariablen und des aktuell laufenden Images via docker inspect]
+    C --> D[Skript prüft CVEs von altem und neuem Image via Trivy, stellt Ergebnisse in Tabelle gegenüber]
+    D --> E[Skript schickt Tabelle an LLM, lässt vorformatierten Report generieren]
+    E --> F[Skript hängt den Report vor die Tabelle, konvertiert beides zu HTML und verschickt es als Mail]
+```
+
 ## Anforderungen
 1. [Docker](https://docs.docker.com/desktop/setup/install/linux/)
 2. [DIUN](https://crazymax.dev/diun/install/binary/)
