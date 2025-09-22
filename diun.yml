@@ -1,0 +1,18 @@
+db:
+  path: ./native-data/diun.db
+
+watch:
+  workers: 10
+  schedule: "0 */12 * * *"
+
+providers:
+  docker: {}
+
+notif:
+  script:
+    cmd: ./run_update_handler.sh
+    dir: .
+
+log:
+  level: info
+  json: false
